@@ -6,6 +6,8 @@ export interface PageTurnerSettings {
   enabled: boolean;
   tapToTurn: boolean;
   tapZoneWidth: number;
+  swipeToTurn: boolean;
+  showTurnButtons: boolean;
   fitPageOnOpen: boolean;
   snapScroll: boolean;
   keyboardTurn: boolean;
@@ -15,6 +17,8 @@ export const DEFAULT_SETTINGS: PageTurnerSettings = {
   enabled: true,
   tapToTurn: true,
   tapZoneWidth: 33,
+  swipeToTurn: true,
+  showTurnButtons: true,
   fitPageOnOpen: true,
   snapScroll: true,
   keyboardTurn: true
@@ -61,6 +65,26 @@ export class PageTurnerSettingTab extends PluginSettingTab {
         .setValue(this.plugin.settings.tapZoneWidth)
         .onChange(async (value) => {
           this.plugin.settings.tapZoneWidth = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(this.containerEl)
+      .setName("Swipe to turn pages")
+      .setDesc("Swipe left or right on a PDF page to turn it.")
+      .addToggle((toggle) => toggle
+        .setValue(this.plugin.settings.swipeToTurn)
+        .onChange(async (value) => {
+          this.plugin.settings.swipeToTurn = value;
+          await this.plugin.saveSettings();
+        }));
+
+    new Setting(this.containerEl)
+      .setName("Show page turn buttons")
+      .setDesc("Show small previous and next buttons over the PDF as a fallback.")
+      .addToggle((toggle) => toggle
+        .setValue(this.plugin.settings.showTurnButtons)
+        .onChange(async (value) => {
+          this.plugin.settings.showTurnButtons = value;
           await this.plugin.saveSettings();
         }));
 

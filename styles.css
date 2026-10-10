@@ -1,7 +1,105 @@
 .page-turner-active {
+  position: relative;
   overscroll-behavior-y: contain;
 }
 
 .page-turner-active .page {
   scroll-margin-block-start: 0;
+}
+
+.page-turner-controls {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.page-turner-control {
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  color: var(--text-muted);
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s);
+  opacity: 0.35;
+  pointer-events: auto;
+  touch-action: manipulation;
+  transition: opacity 120ms ease;
+}
+
+.page-turner-control:hover,
+.page-turner-control:focus-visible,
+.page-turner-control:active {
+  color: var(--text-normal);
+  opacity: 0.9;
+}
+
+.page-turner-control-previous {
+  bottom: max(12px, env(safe-area-inset-bottom));
+  left: max(12px, env(safe-area-inset-left));
+}
+
+.page-turner-control-next {
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+.page-turner-control-exit-focus {
+  top: max(12px, env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
+}
+
+.page-turner-turn-controls-visible .page-turner-control-previous,
+.page-turner-turn-controls-visible .page-turner-control-next,
+.page-turner-focus-exit-visible .page-turner-control-exit-focus {
+  display: flex;
+}
+
+.page-turner-focus-leaf {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1000 !important;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: var(--background-primary);
+}
+
+/* Let the fixed focus leaf escape workspace containment and transformed ancestors. */
+body.page-turner-focus :has(.page-turner-focus-leaf) {
+  contain: none !important;
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
+  perspective: none !important;
+}
+
+.page-turner-focus-leaf .view-header,
+.page-turner-focus-leaf .pdf-toolbar,
+.page-turner-focus-leaf [class*="pdf-toolbar"],
+.page-turner-focus-leaf .pdf-sidebar,
+.page-turner-focus-leaf [class*="pdf-sidebar"],
+.page-turner-focus-leaf .sidebarContainer,
+.page-turner-focus-leaf .pdfViewer .toolbar {
+  display: none !important;
+}
+
+body.page-turner-focus .titlebar,
+body.page-turner-focus .workspace-ribbon,
+body.page-turner-focus .workspace-tab-header-container,
+body.page-turner-focus .workspace-sidedock-vault-profile,
+body.page-turner-focus .workspace-drawer,
+body.page-turner-focus .status-bar,
+body.page-turner-focus .mobile-navbar,
+body.page-turner-focus .mobile-navbar-actions,
+body.page-turner-focus .mobile-toolbar {
+  display: none !important;
 }
