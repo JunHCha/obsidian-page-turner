@@ -1,0 +1,10 @@
+{
+  "id": "page-turner",
+  "name": "Page Turner",
+  "version": "1.0.0",
+  "minAppVersion": "1.5.0",
+  "description": "Turn PDF pages with taps, pedals, and page-fit scrolling, like a sheet music viewer.",
+  "author": "JunHCha",
+  "authorUrl": "https://github.com/JunHCha",
+  "isDesktopOnly": false
+}

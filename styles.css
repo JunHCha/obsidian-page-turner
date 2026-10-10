@@ -1,0 +1,7 @@
+.page-turner-active {
+  overscroll-behavior-y: contain;
+}
+
+.page-turner-active .page {
+  scroll-margin-block-start: 0;
+}
