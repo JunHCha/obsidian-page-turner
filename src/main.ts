@@ -11,6 +11,7 @@ import type { PageTurnerSettings } from "./settings";
 export default class PageTurnerPlugin extends Plugin {
   public settings: PageTurnerSettings = { ...DEFAULT_SETTINGS };
   private readonly controllers = new Map<WorkspaceLeaf, PdfController>();
+  private focusedLeaf: WorkspaceLeaf | null = null;
   private syncTimer: number | null = null;
 
   public override async onload(): Promise<void> {
@@ -35,6 +36,11 @@ export default class PageTurnerPlugin extends Plugin {
         await this.saveSettings();
       }
     });
+    this.addCommand({
+      id: "toggle-focus-mode",
+      name: "Toggle focus mode",
+      callback: () => this.toggleActiveFocusMode()
+    });
 
     this.registerEvent(this.app.workspace.on("file-open", () => this.scheduleSync()));
     this.registerEvent(this.app.workspace.on("layout-change", () => this.scheduleSync()));
@@ -44,6 +50,8 @@ export default class PageTurnerPlugin extends Plugin {
   }
 
   public override onunload(): void {
+    this.exitFocusMode();
+    document.body.classList.remove("page-turner-focus");
     if (this.syncTimer !== null) {
       window.clearTimeout(this.syncTimer);
     }
@@ -54,6 +62,9 @@ export default class PageTurnerPlugin extends Plugin {
   }
 
   public async saveSettings(): Promise<void> {
+    if (!this.settings.enabled) {
+      this.exitFocusMode();
+    }
     await this.saveData(this.settings);
     for (const controller of this.controllers.values()) {
       controller.refreshSettings();
@@ -80,6 +91,9 @@ export default class PageTurnerPlugin extends Plugin {
     const pdfLeaves = new Set(this.app.workspace.getLeavesOfType("pdf"));
     for (const [leaf, controller] of this.controllers) {
       if (!pdfLeaves.has(leaf)) {
+        if (this.focusedLeaf === leaf) {
+          this.exitFocusMode();
+        }
         this.removeChild(controller);
         this.controllers.delete(leaf);
       }
@@ -87,12 +101,21 @@ export default class PageTurnerPlugin extends Plugin {
     for (const leaf of pdfLeaves) {
       const existingController = this.controllers.get(leaf);
       if (existingController?.attachedFilePath === getPdfFilePath(leaf)) {
+        existingController.revalidate();
         continue;
       }
       if (existingController !== undefined) {
+        if (this.focusedLeaf === leaf) {
+          this.exitFocusMode();
+        }
         this.removeChild(existingController);
       }
-      const controller = new PdfController(leaf, () => this.settings);
+      const controller = new PdfController(
+        leaf,
+        () => this.settings,
+        () => this.toggleFocusModeForLeaf(leaf),
+        () => this.exitFocusModeForLeaf(leaf)
+      );
       this.controllers.set(leaf, controller);
       this.addChild(controller);
     }
@@ -111,6 +134,12 @@ export default class PageTurnerPlugin extends Plugin {
   }
 
   private handleKeydown(event: KeyboardEvent): void {
+    if (event.key === "Escape" && this.focusedLeaf !== null && !hasVisibleModal(document)) {
+      this.exitFocusMode();
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
     if (
       !this.settings.enabled
       || !this.settings.keyboardTurn
@@ -129,6 +158,46 @@ export default class PageTurnerPlugin extends Plugin {
     const delta = keyDirection(event);
     if (delta !== null && this.turnActivePage(delta)) {
       event.preventDefault();
+    }
+  }
+
+  private toggleActiveFocusMode(): void {
+    const leaf = this.app.workspace.activeLeaf;
+    if (leaf !== null && leaf.view.getViewType() === "pdf") {
+      this.toggleFocusModeForLeaf(leaf);
+    }
+  }
+
+  private toggleFocusModeForLeaf(leaf: WorkspaceLeaf): void {
+    if (!this.settings.enabled) {
+      return;
+    }
+    if (this.focusedLeaf === leaf) {
+      this.exitFocusMode();
+      return;
+    }
+    this.exitFocusMode();
+    const controller = this.controllers.get(leaf);
+    if (controller === undefined) {
+      return;
+    }
+    this.focusedLeaf = leaf;
+    document.body.classList.add("page-turner-focus");
+    controller.setFocusMode(true);
+  }
+
+  private exitFocusModeForLeaf(leaf: WorkspaceLeaf): void {
+    if (this.focusedLeaf === leaf) {
+      this.exitFocusMode();
+    }
+  }
+
+  private exitFocusMode(): void {
+    const focusedLeaf = this.focusedLeaf;
+    this.focusedLeaf = null;
+    document.body.classList.remove("page-turner-focus");
+    if (focusedLeaf !== null) {
+      this.controllers.get(focusedLeaf)?.setFocusMode(false);
     }
   }
 }

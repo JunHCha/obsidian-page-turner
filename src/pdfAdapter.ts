@@ -20,6 +20,7 @@ interface PdfViewerInternal {
 export interface PdfViewerHandle {
   readonly rootElement: HTMLElement;
   readonly scrollElement: HTMLElement;
+  readonly viewerIdentity: object;
   fitPage(): void;
   turnPage(delta: -1 | 1): boolean;
   getPageOffsets(): number[];
@@ -88,13 +89,19 @@ function createHandle(leaf: WorkspaceLeaf, viewer: PdfViewerInternal): PdfViewer
     ? viewer.container
     : rootElement?.querySelector<HTMLElement>(".pdfViewerContainer") ?? null;
 
-  if (rootElement === null || scrollElement === null) {
+  if (
+    rootElement === null
+    || scrollElement === null
+    || !rootElement.isConnected
+    || !scrollElement.isConnected
+  ) {
     return null;
   }
 
   return {
     rootElement,
     scrollElement,
+    viewerIdentity: viewer,
     fitPage(): void {
       try {
         viewer.currentScaleValue = "page-fit";
