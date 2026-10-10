@@ -64,34 +64,31 @@
   display: flex;
 }
 
-.page-turner-focus-leaf {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 1000 !important;
+body.page-turner-focus .page-turner-focus-leaf {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
   background: var(--background-primary);
 }
 
 /* Let the fixed focus leaf escape workspace containment and transformed ancestors. */
-body.page-turner-focus :has(.page-turner-focus-leaf) {
-  contain: none !important;
-  transform: none !important;
-  filter: none !important;
-  will-change: auto !important;
-  perspective: none !important;
+body.page-turner-focus .page-turner-focus-ancestor {
+  contain: none;
+  transform: none;
+  filter: none;
+  will-change: auto;
+  perspective: none;
 }
 
-.page-turner-focus-leaf .view-header,
-.page-turner-focus-leaf .pdf-toolbar,
-.page-turner-focus-leaf [class*="pdf-toolbar"],
-.page-turner-focus-leaf .pdf-sidebar,
-.page-turner-focus-leaf [class*="pdf-sidebar"],
-.page-turner-focus-leaf .sidebarContainer,
-.page-turner-focus-leaf .pdfViewer .toolbar {
-  display: none !important;
-}
-
+body.page-turner-focus .page-turner-focus-leaf .view-header,
+body.page-turner-focus .page-turner-focus-leaf .pdf-toolbar,
+body.page-turner-focus .page-turner-focus-leaf [class*="pdf-toolbar"],
+body.page-turner-focus .page-turner-focus-leaf .pdf-sidebar,
+body.page-turner-focus .page-turner-focus-leaf [class*="pdf-sidebar"],
+body.page-turner-focus .page-turner-focus-leaf .sidebarContainer,
+body.page-turner-focus .page-turner-focus-leaf .pdfViewer .toolbar,
 body.page-turner-focus .titlebar,
 body.page-turner-focus .workspace-ribbon,
 body.page-turner-focus .workspace-tab-header-container,
@@ -101,5 +98,5 @@ body.page-turner-focus .status-bar,
 body.page-turner-focus .mobile-navbar,
 body.page-turner-focus .mobile-navbar-actions,
 body.page-turner-focus .mobile-toolbar {
-  display: none !important;
+  display: none;
 }

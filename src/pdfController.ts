@@ -42,6 +42,7 @@ export class PdfController extends Component {
   private controls: HTMLElement | null = null;
   private focusAction: HTMLElement | null = null;
   private focusMode = false;
+  private focusElements: HTMLElement[] = [];
   private attaching = false;
   private unloading = false;
   private readonly pointer = new PointerGestureState();
@@ -72,7 +73,8 @@ export class PdfController extends Component {
     this.abortController.abort();
     this.requestExitFocus();
     this.clearTimers();
-    this.handle?.rootElement.classList.remove("page-turner-active", "page-turner-focus-leaf");
+    this.setFocusTarget(null);
+    this.handle?.rootElement.classList.remove("page-turner-active");
   }
 
   public turnPage(delta: -1 | 1): boolean {
@@ -102,7 +104,7 @@ export class PdfController extends Component {
   public setFocusMode(active: boolean): void {
     if (this.unloading || this.abortController.signal.aborted) {
       if (!active) {
-        this.handle?.rootElement.classList.remove("page-turner-focus-leaf");
+        this.setFocusTarget(null);
         this.controls?.classList.remove("page-turner-focus-exit-visible");
       }
       return;
@@ -116,7 +118,7 @@ export class PdfController extends Component {
   private applySettings(): void {
     const settings = this.getSettings();
     this.handle?.rootElement.classList.toggle("page-turner-active", settings.enabled);
-    this.handle?.rootElement.classList.toggle("page-turner-focus-leaf", this.focusMode);
+    this.setFocusTarget(this.focusMode ? this.handle?.rootElement ?? null : null);
     this.controls?.classList.toggle(
       "page-turner-turn-controls-visible",
       settings.enabled && settings.showTurnButtons
@@ -169,7 +171,8 @@ export class PdfController extends Component {
   }
 
   private detachHandle(): void {
-    this.handle?.rootElement.classList.remove("page-turner-active", "page-turner-focus-leaf");
+    this.setFocusTarget(null);
+    this.handle?.rootElement.classList.remove("page-turner-active");
     if (this.bindings !== null) {
       this.removeChild(this.bindings);
       this.bindings = null;
@@ -516,6 +519,26 @@ export class PdfController extends Component {
     this.fitTimer = null;
     this.programmaticTimer = null;
     this.programmaticScroll = false;
+  }
+
+  private setFocusTarget(root: HTMLElement | null): void {
+    if (this.focusElements[0] === root) {
+      return;
+    }
+    for (const element of this.focusElements) {
+      element.classList.remove("page-turner-focus-leaf", "page-turner-focus-ancestor");
+    }
+    this.focusElements = [];
+    if (root === null) {
+      return;
+    }
+    root.classList.add("page-turner-focus-leaf");
+    this.focusElements.push(root);
+    const body = root.ownerDocument.body;
+    for (let element = root.parentElement; element !== null && element !== body; element = element.parentElement) {
+      element.classList.add("page-turner-focus-ancestor");
+      this.focusElements.push(element);
+    }
   }
 
   private resetGestures(): void {

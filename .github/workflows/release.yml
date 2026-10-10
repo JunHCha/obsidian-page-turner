@@ -7,6 +7,8 @@ name: Release
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   release:
@@ -32,6 +34,13 @@ jobs:
             echo "Tag $TAG does not match manifest.json version $VERSION" >&2
             exit 1
           fi
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
