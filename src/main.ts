@@ -9,7 +9,7 @@ import {
 import type { PageTurnerSettings } from "./settings";
 
 export default class PageTurnerPlugin extends Plugin {
-  public settings: PageTurnerSettings = { ...DEFAULT_SETTINGS };
+  public override settings: PageTurnerSettings = { ...DEFAULT_SETTINGS };
   private readonly controllers = new Map<WorkspaceLeaf, PdfController>();
   private focusedLeaf: WorkspaceLeaf | null = null;
   private syncTimer: number | null = null;
