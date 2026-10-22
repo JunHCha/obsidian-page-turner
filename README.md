@@ -2,11 +2,17 @@
 
 Turn PDFs in Obsidian like sheet music — tap, swipe, or pedal.
 
+[![GitHub stars](https://img.shields.io/github/stars/JunHCha/obsidian-page-turner?style=social)](https://github.com/JunHCha/obsidian-page-turner/stargazers)
 [![CI](https://github.com/JunHCha/obsidian-page-turner/actions/workflows/ci.yml/badge.svg)](https://github.com/JunHCha/obsidian-page-turner/actions/workflows/ci.yml)
 
 ![Illustrated Page Turner banner with a sheet music page](docs/assets/thumbnail.svg)
 
 ![Page Turner demo: tap, swipe, arrow key, and focus mode page turns in Obsidian](docs/assets/demo.gif)
+
+<p align="center">
+  <b>Was this what you needed?</b> Leave a star so other musicians can find it too.<br>
+  <a href="https://github.com/JunHCha/obsidian-page-turner"><img alt="Star Page Turner on GitHub" src="https://img.shields.io/badge/%E2%AD%90%20Star%20on%20GitHub-If%20it%20helped-7c5cff?style=for-the-badge&logo=github&logoColor=white"></a>
+</p>
 
 ## Features
 
@@ -60,5 +66,9 @@ Keys work when a PDF is active and focus is outside editable controls. Pedals mu
 ## Compatibility
 
 Desktop, iOS, and Android; Obsidian 1.5.0 or later. Page Turner relies on Obsidian's internal pdf.js viewer, which may change with Obsidian updates.
+
+## Feedback
+
+Something broken or missing? [Report a bug](https://github.com/JunHCha/obsidian-page-turner/issues/new?template=bug_report.yml) · [Request a feature](https://github.com/JunHCha/obsidian-page-turner/issues/new?template=feature_request.yml)
 
 [Contributing](CONTRIBUTING.md) · [MIT License](LICENSE)

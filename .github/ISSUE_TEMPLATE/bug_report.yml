@@ -1,0 +1,53 @@
+name: Bug report
+description: Something in Page Turner doesn't work as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a PDF
+        2. Tap the right edge
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: input
+    attributes:
+      label: Input method
+      multiple: true
+      options:
+        - Tap or click
+        - Swipe
+        - On-screen buttons
+        - Keyboard
+        - Bluetooth pedal
+        - Focus mode
+        - Fit page or scroll snap
+  - type: input
+    id: device
+    attributes:
+      label: Device and OS
+      placeholder: iPad Pro 12.9, iPadOS 18.1
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Obsidian and Page Turner versions
+      placeholder: Obsidian 1.14.4, Page Turner 1.1.1
+    validations:
+      required: true
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshots, recordings, or console errors
+      description: Optional. Drag files here.

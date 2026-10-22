@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest an idea that would make Page Turner better for performing
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The situation or problem, such as "turning two pages at once while playing".
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+      description: The behavior you'd like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else?
+      description: Optional. Device, pedal model, alternatives you tried, or mockups.
