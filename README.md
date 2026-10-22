@@ -1,127 +1,74 @@
 # Page Turner
 
+Turn PDFs in Obsidian like sheet music — tap, swipe, or pedal.
+
+[![GitHub stars](https://img.shields.io/github/stars/JunHCha/obsidian-page-turner?style=social)](https://github.com/JunHCha/obsidian-page-turner/stargazers)
 [![CI](https://github.com/JunHCha/obsidian-page-turner/actions/workflows/ci.yml/badge.svg)](https://github.com/JunHCha/obsidian-page-turner/actions/workflows/ci.yml)
 
-Turn PDFs in Obsidian with taps, pedals, and page-fit scrolling, like a sheet music viewer.
+![Illustrated Page Turner banner with a sheet music page](docs/assets/thumbnail.svg)
 
-## Why
+![Page Turner demo: tap, swipe, arrow key, and focus mode page turns in Obsidian](docs/assets/demo.gif)
 
-Obsidian's built-in PDF viewer scrolls continuously. That works well for reading, but it is awkward when playing from sheet music: performers need predictable, one-page-at-a-time navigation like a dedicated sheet music app. Page Turner adds that behavior while keeping PDFs inside Obsidian.
+<p align="center">
+  <b>Was this what you needed?</b> Leave a star so other musicians can find it too.<br>
+  <a href="https://github.com/JunHCha/obsidian-page-turner"><img alt="Star Page Turner on GitHub" src="https://img.shields.io/badge/%E2%AD%90%20Star%20on%20GitHub-If%20it%20helped-7c5cff?style=for-the-badge&logo=github&logoColor=white"></a>
+</p>
 
 ## Features
 
-- **Tap to turn:** A short tap or click in the left or right edge of a PDF moves to the previous or next page. The middle zone keeps its default behavior, and page turns are suppressed during scrolling, dragging, pinch-zooming, long presses, text selection, link or annotation interaction, and use of the PDF toolbar or sidebar.
-- **Swipe to turn:** Swipe left or right from a PDF page to turn it without opening Obsidian's mobile drawers. Swipes outside the page keep Obsidian's default behavior, and zoomed pages still pan normally.
-- **On-screen controls:** Small previous and next buttons provide a reliable fallback for turning pages.
-- **Focus mode:** Expand one PDF over the workspace and hide Obsidian's surrounding interface for distraction-free performance.
-- **Fit page:** PDFs automatically use whole-page fit after their pages initialize and whenever the viewer is resized or the device rotates.
-- **Scroll snap:** After vertical scrolling settles, the viewport smoothly aligns with the nearest page top when the whole page fits. Snapping pauses while zoomed in so you can scroll within a page.
-- **Pedal and keyboard control:** Common navigation keys turn pages while a PDF is active and focus is outside editable controls. Bluetooth page-turn pedals that send these keys work too.
+- 👆 **Tap zones:** Tap a PDF's left or right edge to turn a page.
+- 👈 **Swipe:** Swipe from the PDF page to turn; zoomed pages still pan.
+- 🎹 **Keys and pedals:** Navigate with keyboard keys or Bluetooth pedals that send them.
+- ⛶ **Focus mode:** Expand one PDF over the workspace.
+- 📐 **Fit and snap:** Fit whole pages and align scrolling to page tops.
+- ◀️ **On-screen buttons:** Use previous and next controls over the PDF.
 
-## Usage
+## Install
 
-With a PDF open, tap or click in one of these horizontal zones:
+- **Community plugins:** When listed, search for **Page Turner**, then install and enable it.
+- **BRAT:** Add this beta plugin repository:
 
-| Left zone | Middle zone | Right zone |
-| --- | --- | --- |
-| Previous page | Default PDF behavior | Next page |
+  ```text
+  JunHCha/obsidian-page-turner
+  ```
 
-The left and right zones each use the configured **Tap zone width**. The middle occupies the remaining area.
+- **Manual:** Copy a release's `main.js`, `manifest.json`, and `styles.css` to `<vault>/.obsidian/plugins/page-turner/`, restart Obsidian, then enable the plugin.
 
-On a touch screen, swipe left for the next page or right for the previous page. Start the swipe on the PDF page itself; the surrounding margins remain available for Obsidian's drawer gestures.
+## Use
 
-When enabled, the translucent buttons in the bottom corners provide previous and next page controls. Use **Toggle focus mode** or the maximize action in the PDF header to show only the document; press `Escape`, run the command again, or use the top-right minimize button to exit.
+Tap the PDF's left edge for the previous page or right edge for the next; the middle keeps default PDF behavior. Swipe left for next or right for previous, starting on the page.
 
-Commands are available from the command palette and have no default hotkeys:
-
-- **Next page**
-- **Previous page**
-- **Toggle page turner** — enables or disables all Page Turner behavior globally
-- **Toggle focus mode** — enters or exits focus mode for the active PDF
-
-Keyboard and pedal inputs work while the active view is a PDF and focus is not in an editable element:
-
-| Action | Keys |
+| Action | Keyboard or pedal keys |
 | --- | --- |
 | Next page | `ArrowRight`, `ArrowDown`, `PageDown`, `Space` |
 | Previous page | `ArrowLeft`, `ArrowUp`, `PageUp`, `Shift+Space` |
 
-Tip: while performing, set your device's screen auto-sleep or auto-lock timeout long enough to keep the sheet music visible.
+Keys work when a PDF is active and focus is outside editable controls. Pedals must send one of the keys above.
 
-## Settings
+**Commands:** Next page · Previous page · Toggle page turner · Toggle focus mode. Find them in the command palette; none has a default hotkey.
 
-| Name | Default | Description |
+<details>
+<summary>Settings</summary>
+
+| Setting | Default | What it does |
 | --- | --- | --- |
-| Enable page turner | `true` | Enables or disables all Page Turner behavior globally. |
-| Tap to turn pages | `true` | Turns pages with short taps or clicks in the left and right zones. |
-| Tap zone width | `33` | Sets the width of each side tap zone as a percentage, from 10% to 45%. |
-| Swipe to turn pages | `true` | Turns pages with horizontal swipes that start on a PDF page. |
-| Show page turn buttons | `true` | Shows small previous and next buttons over the PDF as a fallback. |
-| Fit page to screen | `true` | Fits each PDF page to the screen when the PDF opens and when the viewer size changes. |
-| Snap scrolling to pages | `true` | Smoothly aligns the viewport to the nearest page after vertical scrolling settles, unless the page is zoomed beyond the viewport. |
-| Turn pages with keys and pedals | `true` | Enables page turns from supported keyboard keys and Bluetooth pedals. |
+| Enable page turner | `true` | Enables or disables all Page Turner behavior. |
+| Tap to turn pages | `true` | Turns pages with short taps or clicks in side zones. |
+| Tap zone width | `33` | Sets each side zone to 10–45% of the page width. |
+| Swipe to turn pages | `true` | Turns pages with swipes starting on a PDF page. |
+| Show page turn buttons | `true` | Shows previous and next buttons over the PDF. |
+| Fit page to screen | `true` | Fits pages when the PDF opens or the viewer resizes. |
+| Snap scrolling to pages | `true` | Aligns scrolling to page tops when the page fits. |
+| Turn pages with keys and pedals | `true` | Enables supported keys and Bluetooth pedals. |
 
-## Installation
+</details>
 
-### Community plugins
+## Compatibility
 
-Once Page Turner is listed in the Obsidian Community plugins directory, search for **Page Turner**, select it, and choose **Install**, then **Enable**.
+Desktop, iOS, and Android; Obsidian 1.5.0 or later. Page Turner relies on Obsidian's internal pdf.js viewer, which may change with Obsidian updates.
 
-### BRAT
+## Feedback
 
-Install the [BRAT](https://github.com/TfTHacker/obsidian42-brat) plugin, choose **Add Beta plugin**, and enter:
+Something broken or missing? [Report a bug](https://github.com/JunHCha/obsidian-page-turner/issues/new?template=bug_report.yml) · [Request a feature](https://github.com/JunHCha/obsidian-page-turner/issues/new?template=feature_request.yml)
 
-```text
-JunHCha/obsidian-page-turner
-```
-
-### Manual
-
-Download `main.js`, `manifest.json`, and `styles.css` from a release and copy them into:
-
-```text
-<vault>/.obsidian/plugins/page-turner/
-```
-
-Restart Obsidian, then enable **Page Turner** under Community plugins.
-
-## Compatibility and limitations
-
-Page Turner works on desktop and mobile, including iOS and Android, and requires Obsidian 1.5.0 or later.
-
-The plugin relies on Obsidian's internal pdf.js viewer, which is not a public API. Obsidian updates may change that viewer and temporarily break Page Turner.
-
-## Development
-
-Node.js 20 and npm are required.
-
-```sh
-npm ci
-npm run dev
-npm run build
-npm run lint
-npm test
-```
-
-Contributions are welcome through pull requests. The `main` branch is protected, so submit changes on a branch and open a pull request.
-
-## Releasing
-
-Create a release branch from the latest `main`, then bump the version without creating a local commit or tag:
-
-```sh
-npm version <patch|minor|major> --no-git-tag-version
-```
-
-This updates `package.json`, `manifest.json`, and `versions.json`. Open a pull request with those changes and merge it after CI passes. Then update your local protected `main` branch and publish the version tag shown in `manifest.json`:
-
-```sh
-git tag <version>
-git push origin <version>
-```
-
-The release workflow builds the plugin, verifies that the tag matches `manifest.json`, creates a GitHub release, and attaches `main.js`, `manifest.json`, and `styles.css`.
-
-## License
-
-[MIT](LICENSE)
+[Contributing](CONTRIBUTING.md) · [MIT License](LICENSE)

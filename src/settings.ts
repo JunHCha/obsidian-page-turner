@@ -29,7 +29,7 @@ export class PageTurnerSettingTab extends PluginSettingTab {
     super(app, plugin);
   }
 
-  public display(): void {
+  public override display(): void {
     this.containerEl.empty();
 
     new Setting(this.containerEl)

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">Page Turner</title>
+  <desc id="desc">A stylized sheet music page turning beside the Page Turner name and tagline.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1">
+      <stop stop-color="#17152e"/>
+      <stop offset="1" stop-color="#34225b"/>
+    </linearGradient>
+    <linearGradient id="paper" x2="1" y2="1">
+      <stop stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#e9e3f5"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#090716" flood-opacity=".36"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" fill="url(#background)"/>
+  <circle cx="1160" cy="76" r="230" fill="#7754ca" opacity=".16"/>
+  <circle cx="140" cy="580" r="270" fill="#9d6dec" opacity=".12"/>
+  <g filter="url(#shadow)" transform="translate(86 77) rotate(-5 246 244)">
+    <rect width="492" height="488" rx="24" fill="url(#paper)"/>
+    <g stroke="#b5aec7" stroke-width="2" opacity=".85">
+      <path d="M56 116h376M56 134h376M56 152h376M56 170h376M56 188h376"/>
+      <path d="M56 252h376M56 270h376M56 288h376M56 306h376M56 324h376"/>
+      <path d="M56 388h376M56 406h376M56 424h376M56 442h376M56 460h376"/>
+    </g>
+    <g fill="#604a92" stroke="#604a92" stroke-width="4" stroke-linecap="round">
+      <ellipse cx="108" cy="162" rx="12" ry="8" transform="rotate(-20 108 162)"/><path d="M119 160v-53"/>
+      <ellipse cx="168" cy="180" rx="12" ry="8" transform="rotate(-20 168 180)"/><path d="M179 178v-53"/>
+      <ellipse cx="244" cy="144" rx="12" ry="8" transform="rotate(-20 244 144)"/><path d="M255 142V89"/>
+      <ellipse cx="330" cy="170" rx="12" ry="8" transform="rotate(-20 330 170)"/><path d="M341 168v-53"/>
+      <ellipse cx="123" cy="298" rx="12" ry="8" transform="rotate(-20 123 298)"/><path d="M134 296v-53"/>
+      <ellipse cx="215" cy="280" rx="12" ry="8" transform="rotate(-20 215 280)"/><path d="M226 278v-53"/>
+      <ellipse cx="309" cy="316" rx="12" ry="8" transform="rotate(-20 309 316)"/><path d="M320 314v-53"/>
+      <ellipse cx="389" cy="270" rx="12" ry="8" transform="rotate(-20 389 270)"/><path d="M400 268v-53"/>
+      <ellipse cx="102" cy="434" rx="12" ry="8" transform="rotate(-20 102 434)"/><path d="M113 432v-53"/>
+      <ellipse cx="198" cy="416" rx="12" ry="8" transform="rotate(-20 198 416)"/><path d="M209 414v-53"/>
+      <ellipse cx="300" cy="452" rx="12" ry="8" transform="rotate(-20 300 452)"/><path d="M311 450v-53"/>
+    </g>
+  </g>
+  <path d="M508 78 Q581 102 584 177 L582 548 Q558 530 526 527 Q518 320 508 78Z" fill="#d8cde9" opacity=".88"/>
+  <text x="665" y="241" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="700" letter-spacing="-3">Page Turner</text>
+  <rect x="669" y="273" width="88" height="6" rx="3" fill="#b99af4"/>
+  <text x="665" y="336" fill="#e6def6" font-family="Arial, Helvetica, sans-serif" font-size="30">Turn PDFs like sheet music.</text>
+  <text x="665" y="382" fill="#bcaed9" font-family="Arial, Helvetica, sans-serif" font-size="25">Tap · Swipe · Pedal</text>
+</svg>
