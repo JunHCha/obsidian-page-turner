@@ -1,6 +1,6 @@
 {
   "name": "obsidian-page-turner",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Turn PDF pages with taps, pedals, and page-fit scrolling, like a sheet music viewer.",
   "type": "module",
   "main": "main.js",
